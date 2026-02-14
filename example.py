@@ -1,7 +1,7 @@
-from event_raiser_gen import EventOf, generate_event_raisers
+from event_raiser_gen import EventOf, EventDict, generate_event_raisers
 
 # Define events
-MY_EVENTS = {
+MY_EVENTS: EventDict = {
     "on_temperature_changed": [("temperature", float)],
     "on_humidity_changed": [("humidity", float)],
     "on_light_level_changed": [("light_level", int)],

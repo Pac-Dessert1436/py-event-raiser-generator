@@ -2,7 +2,6 @@ from typing import Callable, Any, TypeAlias, TypeVarTuple, Unpack
 import inspect
 
 _EventParams: TypeAlias = list[tuple[str, Any]]
-_EventDict: TypeAlias = dict[str, _EventParams]
 _ModuleGlobals: TypeAlias = dict[str, Any]
 _NestedCallable: TypeAlias = Callable[[Callable], Callable]
 _EventRegistry: TypeAlias = dict[str, list[Callable]]
@@ -11,11 +10,12 @@ _Args = TypeVarTuple("_Args")
 # Type alias for event callback functions
 # EXAMPLE: EventOf[int, float] = Callable[[int, float], None]
 EventOf: TypeAlias = Callable[[Unpack[_Args]], None]
+EventDict: TypeAlias = dict[str, _EventParams]
 
 _event_registry: _EventRegistry = {}
 
 
-def generate_event_raisers(events: _EventDict, module_globals: _ModuleGlobals) -> None:
+def generate_event_raisers(events: EventDict, module_globals: _ModuleGlobals) -> None:
     """
     Generate corresponding event decorators and trigger functions based on the EVENTS dictionary.
 

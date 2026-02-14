@@ -20,10 +20,10 @@ The auto-generated event trigger functions cannot be fully recognized by static 
 
 One possible solution is to manually write stubs for event raisers **before** they are generated:
 ```python
-from event_raiser_gen import EventOf, generate_event_raisers
+from event_raiser_gen import EventOf, EventDict, generate_event_raisers
 
 # Define your custom events (name: list of (param_name, param_type) tuples)
-CUSTOM_EVENTS = {
+CUSTOM_EVENTS: EventDict = {
     "user_login": [("user_id", int), ("timestamp", float)],
     "order_placed": [("order_id", str), ("total_amount", float)]
 }
@@ -50,10 +50,10 @@ cd py-event-raiser-generator
 ## Basic Usage
 ### 1. Define Events and Generate Raisers/Decorators
 ```python
-from event_raiser_gen import EventOf, generate_event_raisers
+from event_raiser_gen import EventOf, EventDict, generate_event_raisers
 
 # Define your custom events (name: list of (param_name, param_type) tuples)
-CUSTOM_EVENTS = {
+CUSTOM_EVENTS: EventDict = {
     "user_login": [("user_id", int), ("timestamp", float)],
     "order_placed": [("order_id", str), ("total_amount", float)]
 }
@@ -69,12 +69,12 @@ generate_event_raisers(CUSTOM_EVENTS, globals())
 ```python
 # Use the generated decorator to register a callback for "user_login"
 @user_login
-def handle_user_login(user_id: int, timestamp: float):
+def handle_user_login(user_id: int, timestamp: float) -> None:
     print(f"User {user_id} logged in at {timestamp}")
 
 # Register another callback for "order_placed"
 @order_placed
-def handle_order_placed(order_id: str, total_amount: float):
+def handle_order_placed(order_id: str, total_amount: float) -> None:
     print(f"Order {order_id} placed (total: ${total_amount:.2f})")
 ```
 
@@ -108,16 +108,18 @@ Generates event decorators and trigger functions based on the provided event def
 #### `clear_event_registry() -> None`
 Clears all registered event callbacks from the internal registry.
 
-#### `get_event_registry() -> EventRegistry`
+#### `get_event_registry() -> _EventRegistry`
 Returns the current event registry (dictionary mapping event names to lists of registered callback functions).
 
 ### Type Aliases
 #### `EventOf: TypeAlias = Callable[[Unpack[_Args]], None]`
 Type alias for event trigger functions (accepts any number of arguments).
 
+#### `EventDict: TypeAlias = dict[str, _EventParams]`
+Type alias for event definition dictionary (keys = event names, values = list of (param_name, param_type) tuples).
+
 #### Private Type Aliases (For Reference)
 - `_EventParams = list[tuple[str, Any]]`: List of parameter name/type tuples for an event
-- `_EventDict = dict[str, _EventParams]`: Dictionary defining multiple events
 - `_EventRegistry = dict[str, list[Callable]]`: Internal registry of event-to-callbacks mapping
 
 ## Error Handling
