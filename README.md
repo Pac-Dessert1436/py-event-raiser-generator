@@ -112,15 +112,15 @@ Clears all registered event callbacks from the internal registry.
 Returns the current event registry (dictionary mapping event names to lists of registered callback functions).
 
 ### Type Aliases
-#### `EventOf: TypeAlias = Callable[[Unpack[_Args]], None]`
-Type alias for event trigger functions (accepts any number of arguments).
+#### `EventOf: TypeAlias = Callable[[Unpack[_Args]], None | Awaitable[None]]`
+Type alias for event trigger functions (accepts any number of arguments, supports both synchronous and asynchronous callbacks).
 
 #### `EventDict: TypeAlias = dict[str, _EventParams]`
 Type alias for event definition dictionary (keys = event names, values = list of (param_name, param_type) tuples).
 
 #### Private Type Aliases (For Reference)
 - `_EventParams = list[tuple[str, Any]]`: List of parameter name/type tuples for an event
-- `_EventRegistry = dict[str, list[Callable]]`: Internal registry of event-to-callbacks mapping
+- `_EventRegistry = dict[str, list[Callable[..., Any | Awaitable[Any]]]]`: Internal registry of event-to-callbacks mapping, which supports both synchronous and asynchronous callbacks.
 
 ## Error Handling
 When triggering events, any exceptions raised by registered callbacks are caught and printed to stdout (without interrupting other callbacks):
