@@ -1,4 +1,6 @@
-from event_raiser_gen import EventOf, EventDict, generate_event_raisers
+from event_raiser_gen import (
+    EventOf, EventDict, generate_event_raisers, EventScheduler
+)
 
 # Define events
 MY_EVENTS: EventDict = {
@@ -9,12 +11,15 @@ MY_EVENTS: EventDict = {
 
 # Hand-written stubs for event decorators and trigger functions
 # NOTE: These stubs are required for type checking and IDE support
+
+
 def on_temperature_changed(func: EventOf[float]) -> EventOf[float]: ...
 def on_humidity_changed(func: EventOf[float]) -> EventOf[float]: ...
 def on_light_level_changed(func: EventOf[int]) -> EventOf[int]: ...
 def raise_on_temperature_changed(temperature: float) -> None: ...
 def raise_on_humidity_changed(humidity: float) -> None: ...
 def raise_on_light_level_changed(light_level: int) -> None: ...
+
 
 # Generate event decorators and trigger functions
 generate_event_raisers(MY_EVENTS, globals())
@@ -35,6 +40,7 @@ def handle_light_level_change(light: int) -> None:
     print(f"Light level changed to: {light} lux")
 
 
+scheduler = EventScheduler()
 if __name__ == "__main__":
     # Trigger events
     print("=== Triggering events ===")
@@ -50,3 +56,18 @@ if __name__ == "__main__":
     print("=== Testing error handling ===")
     # Error handled and logged automatically
     raise_on_temperature_changed(30.0)
+
+    # Test event scheduling
+    print("=== Testing event scheduling ===")
+    scheduler.schedule_event_action(
+        lambda: raise_on_temperature_changed(35.0), 20
+    )
+    scheduler.schedule_event_action(
+        lambda: raise_on_humidity_changed(70.0), 40
+    )
+    scheduler.schedule_event_action(
+        lambda: raise_on_light_level_changed(1200), 60
+    )
+    print(f"Pending event count: {scheduler.pending_event_count}")
+    scheduler.raise_scheduled_events()
+    print(f"Pending event count after raise: {scheduler.pending_event_count}")

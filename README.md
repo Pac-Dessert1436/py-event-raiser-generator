@@ -14,6 +14,7 @@ A few key points about the `event_raiser_gen` package:
 - Simple event registry management (clear/retrieve registered callbacks)
 - Graceful error handling for callback execution failures
 - No external dependencies (uses only Python standard library)
+- **NEW: Event scheduling raising capabilities using priority queue**
 
 ### Known Limitation
 The auto-generated event trigger functions cannot be fully recognized by static type checkers (e.g., mypy, Pylance) due to dynamic signature modification. Attempts to resolve this by generating stub files (`.pyi` files) have not succeeded, and this limitation persists as an unavoidable tradeoff for the dynamic generation approach.
@@ -97,6 +98,26 @@ print(f"Registered 'user_login' callbacks: {len(registry.get('user_login', []))}
 clear_event_registry()
 ```
 
+### 5. Event Scheduler
+```python
+from event_raiser_gen import EventScheduler
+from time import sleep
+
+# Create an event scheduler instance
+scheduler = EventScheduler()
+
+# Schedule an event action to be raised after 5 seconds
+def delayed_action() -> None:
+    sleep(5)
+    raise_order_placed(order_id="ORD-9876", total_amount=49.99)
+    print("Delayed action triggered!")
+
+scheduler.schedule_event_action(lambda: raise_user_login(user_id=123, timestamp=1718987654.123), priority=30)
+scheduler.schedule_event_action(lambda: print("Hello world!"), priority=50)
+scheduler.schedule_event_action(delayed_action, priority=80)
+scheduler.raise_scheduled_events()
+```
+
 ## API Reference
 ### Core Functions
 #### `generate_event_raisers(events: EventDict, module_globals: ModuleGlobals) -> None`
@@ -121,6 +142,14 @@ Type alias for event definition dictionary (keys = event names, values = list of
 #### Private Type Aliases (For Reference)
 - `_EventParams = list[tuple[str, Any]]`: List of parameter name/type tuples for an event
 - `_EventRegistry = dict[str, list[Callable[..., Any | Awaitable[Any]]]]`: Internal registry of event-to-callbacks mapping, which supports both synchronous and asynchronous callbacks.
+
+### The `EventScheduler` Class
+A class for scheduling and raising events at specified time intervals, which includes these methods (and one property):
+
+- `__init__(self) -> None`: Initializes the event scheduler.
+- `schedule_event_action(self, event_action: Callable[[], None], priority: int = 0) -> None`: Schedules an event action to be raised after the specified delay.
+- `raise_scheduled_events(self) -> None`: Raises all scheduled events in priority order.
+- `@property pending_event_count(self) -> int`: Returns the number of pending events in the scheduler.
 
 ## Error Handling
 When triggering events, any exceptions raised by registered callbacks are caught and printed to stdout (without interrupting other callbacks):
