@@ -3,7 +3,8 @@ from .event_raiser_gen import (
     clear_event_registry,
     get_event_registry,
     EventOf,
-    EventDict
+    EventDict,
+    EventRegistry
 )
 from .scheduler import EventScheduler
 
@@ -13,5 +14,6 @@ __all__ = [
     "get_event_registry",
     "EventOf",
     "EventDict",
-    "EventScheduler"
+    "EventScheduler",
+    "EventRegistry"
 ]

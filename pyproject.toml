@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "eventraisers"
 description = "A lightweight Python package for dynamically generating event decorators and trigger functions"
-version = "1.0.0"
+version = "1.0.1"
 authors = [
     {name = "Pac-Dessert1436", email = "benjamin_2001@qq.com"}
 ]

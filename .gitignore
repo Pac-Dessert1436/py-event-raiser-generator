@@ -2,3 +2,4 @@
 PUBLISHING.md
 eventraisers.egg-info/
 dist/
+.pypirc

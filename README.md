@@ -6,6 +6,8 @@
 
 **EventRaisers** (formerly "py-event-raiser-generator") is a lightweight, zero-dependency Python library that dynamically generates event decorators and trigger functions at runtime. Define your events once, and EventRaisers automatically creates the necessary infrastructure for event registration and triggering.
 
+> **Note**: Type annotation for event registry is not supported until version 1.0.1 (see [Event Registry Example](#4-event-registry-management) for more details).
+
 ## Key Features
 
 🚀 **Dynamic Generation** - Automatically create event decorators and trigger functions from simple definitions
@@ -109,14 +111,12 @@ raise_system_alert(message="Database connection lost", severity="error")
 Manage registered callbacks and clear the event registry when needed.
 
 ```python
-from eventraisers import get_event_registry, clear_event_registry
+from eventraisers import get_event_registry, clear_event_registry, EventRegistry
 
-# Inspect registered callbacks
-registry = get_event_registry()
+# New in 1.0.1: Type annotation for event registry
+registry: EventRegistry = get_event_registry() # Inspect registered callbacks
 print(f"Registered 'user_login' callbacks: {len(registry.get('user_login', []))}")
-
-# Clear all registered callbacks
-clear_event_registry()
+clear_event_registry()  # Clear all registered callbacks
 ```
 
 ### 5. Event Scheduling
