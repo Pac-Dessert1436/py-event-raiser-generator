@@ -1,4 +1,4 @@
-from event_raiser_gen import (
+from eventraisers import (
     EventOf, EventDict, generate_event_raisers, EventScheduler
 )
 

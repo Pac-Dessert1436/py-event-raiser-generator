@@ -1,4 +1,4 @@
-from .raiser_gen import (
+from .event_raiser_gen import (
     generate_event_raisers,
     clear_event_registry,
     get_event_registry,

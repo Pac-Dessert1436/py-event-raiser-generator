@@ -5,14 +5,14 @@ _EventParams: TypeAlias = list[tuple[str, Any]]
 _ModuleGlobals: TypeAlias = dict[str, Any]
 _NestedCallable: TypeAlias = Callable[[Callable], Callable]
 # Extended event registry supporting synchronous and asynchronous callbacks
-_EventRegistry: TypeAlias = dict[str, list[Callable[..., Any | Awaitable[Any]]]]
+EventRegistry: TypeAlias = dict[str, list[Callable[..., Any | Awaitable[Any]]]]
 
 _Args = TypeVarTuple("_Args")
 # Extended event callback type - supports async functions
 EventOf: TypeAlias = Callable[[Unpack[_Args]], None | Awaitable[None]]
 EventDict: TypeAlias = dict[str, _EventParams]
 
-_event_registry: _EventRegistry = {}
+_event_registry: EventRegistry = {}
 
 
 def generate_event_raisers(events: EventDict, module_globals: _ModuleGlobals) -> None:
@@ -97,6 +97,6 @@ def clear_event_registry() -> None:
     _event_registry.clear()
 
 
-def get_event_registry() -> _EventRegistry:
+def get_event_registry() -> EventRegistry:
     """Get the event registry (includes sync/async callbacks)"""
     return _event_registry

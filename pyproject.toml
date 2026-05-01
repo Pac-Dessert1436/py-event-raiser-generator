@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools-scm[toml]>=3.4", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eventraisers"
+description = "A lightweight Python package for dynamically generating event decorators and trigger functions"
+version = "1.0.0"
+authors = [
+    {name = "Pac-Dessert1436", email = "benjamin_2001@qq.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["events", "decorators", "code-generation", "event-system", "python"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/Pac-Dessert1436/py-event-raiser-generator"
+Repository = "https://github.com/Pac-Dessert1436/py-event-raiser-generator"
+Issues = "https://github.com/Pac-Dessert1436/py-event-raiser-generator/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["eventraisers*"]
+
+[tool.setuptools.package-data]
+eventraisers = ["py.typed"]
+
+[tool.setuptools_scm]
+write_to = "eventraisers/_version.py"

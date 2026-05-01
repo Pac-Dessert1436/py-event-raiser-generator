@@ -1,3 +1,37 @@
+Metadata-Version: 2.4
+Name: eventraisers
+Version: 1.0.0
+Summary: A lightweight Python package for dynamically generating event decorators and trigger functions
+Home-page: https://github.com/Pac-Dessert1436/py-event-raiser-generator
+Author: Pac-Dessert1436
+Author-email: Pac-Dessert1436 <benjamin_2001@qq.com>
+License: MIT
+Project-URL: Homepage, https://github.com/Pac-Dessert1436/py-event-raiser-generator
+Project-URL: Repository, https://github.com/Pac-Dessert1436/py-event-raiser-generator
+Project-URL: Issues, https://github.com/Pac-Dessert1436/py-event-raiser-generator/issues
+Keywords: events,decorators,code-generation,event-system,python
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.14
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Typing :: Typed
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
 # EventRaisers (`eventraisers`) - Dynamic Event System for Python
 
 [![PyPI version](https://img.shields.io/pypi/v/eventraisers.svg)](https://pypi.org/project/eventraisers/)
