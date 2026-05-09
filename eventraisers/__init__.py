@@ -1,10 +1,11 @@
-from .event_raiser_gen import (
+from .generator import (
     generate_event_raisers,
     clear_event_registry,
     get_event_registry,
     EventOf,
     EventDict,
-    EventRegistry
+    EventRegistry,
+    EventRaiserGenerator
 )
 from .scheduler import EventScheduler
 
@@ -15,5 +16,6 @@ __all__ = [
     "EventOf",
     "EventDict",
     "EventScheduler",
-    "EventRegistry"
+    "EventRegistry",
+    "EventRaiserGenerator"
 ]

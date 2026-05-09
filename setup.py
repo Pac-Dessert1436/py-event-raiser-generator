@@ -12,7 +12,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="eventraisers",
-    version="1.0.1",
+    version="1.1.0",
     author="Pac-Dessert1436",
     description="A lightweight Python package for dynamically generating event decorators and trigger functions",
     long_description=long_description,
